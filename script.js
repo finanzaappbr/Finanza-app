@@ -30,9 +30,7 @@ function formatarGuardado() {
     let valor = input.value.replace(/\D/g, "");
     valor = valor / 100;
 
-    if (isNaN(valor) || valor < 0) {
-        valor = 0;
-    }
+    if (isNaN(valor) || valor < 0) valor = 0;
 
     guardado = valor;
     localStorage.setItem("guardado", guardado);
@@ -62,6 +60,10 @@ function adicionar() {
         data
     });
 
+    document.getElementById("descricao").value = "";
+    document.getElementById("valor").value = "";
+    document.getElementById("categoria").value = "";
+
     salvar();
     atualizar();
     fecharModal();
@@ -80,17 +82,14 @@ function atualizar() {
         li.classList.add(item.tipo);
 
         li.innerHTML = `
-            ${item.data} - ${item.descricao} (${item.categoria}) - ${formatarMoeda(item.valor)}
+            ${item.data} - ${item.descricao} (${item.categoria || "Sem categoria"}) - ${formatarMoeda(item.valor)}
             <button onclick="remover(${index})">X</button>
         `;
 
         lista.appendChild(li);
 
-        if (item.tipo === "entrada") {
-            entradas += item.valor;
-        } else {
-            saidas += item.valor;
-        }
+        if (item.tipo === "entrada") entradas += item.valor;
+        else saidas += item.valor;
     });
 
     let disponivel = entradas - saidas - guardado;
@@ -103,12 +102,13 @@ function atualizar() {
     document.getElementById("inputGuardado").value = formatarMoeda(guardado);
 
     let progresso = meta > 0 ? (guardado / meta) * 100 : 0;
-
     if (progresso > 100) progresso = 100;
 
     document.getElementById("progresso").style.width = progresso + "%";
     document.getElementById("textoMeta").innerText =
-        meta > 0 ? `${progresso.toFixed(0)}% da meta` : "Defina uma meta";
+        meta > 0
+            ? `${formatarMoeda(guardado)} de ${formatarMoeda(meta)} (${progresso.toFixed(0)}%)`
+            : "Defina uma meta";
 }
 
 function remover(index) {
