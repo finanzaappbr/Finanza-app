@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinanZa</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -29,7 +28,7 @@
             </div>
 
             <div class="card">
-                <span>Reserva</span>
+                <span>Guardado</span>
                 <input type="text" id="inputGuardado" placeholder="R$ 0,00" oninput="digitandoGuardado()"
                     onblur="formatarGuardado()">
             </div>
@@ -42,7 +41,7 @@
         </div>
 
         <div class="meta-card">
-            <span>Meta de Reserva do Mês</span>
+            <span>Meta do mês</span>
             <input type="number" id="meta" placeholder="Ex: 1000" oninput="salvarMeta()">
 
             <div class="barra">
@@ -63,21 +62,16 @@
 
             <h2>Nova Transação</h2>
 
-            <input type="text" id="descricao" placeholder="Ex: Venda do dia">
-            <input type="number" id="valor" placeholder="Ex: 150">
+            <input type="text" id="descricao" placeholder="Descrição">
+            <input type="number" id="valor" placeholder="Valor">
 
             <select id="tipo">
                 <option value="entrada">Entrada</option>
                 <option value="saida">Saída</option>
             </select>
 
-            <select id="categoria">
-                <option value="Geral">Geral</option>
-                <option value="Alimentação">Alimentação</option>
-                <option value="Fornecedor">Fornecedor</option>
-                <option value="Salário">Salário</option>
-                <option value="Marketing">Marketing</option>
-            </select>
+            <!-- NOVO CAMPO DE CATEGORIA -->
+            <input type="text" id="categoria" placeholder="Categoria (ex: Mercado, aluguel...)">
 
             <button type="button" onclick="adicionar()">Salvar</button>
             <button type="button" onclick="fecharModal()" class="cancelar">Cancelar</button>
@@ -85,12 +79,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js');
-        }
-    </script>
+    <script src="script.js" defer></script>
 
 </body>
 
